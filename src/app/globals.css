@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+:root {
+  --emerald-950: #05241c;
+  --emerald-900: #0a3a2c;
+  --emerald-800: #0f4f3c;
+  --emerald-700: #17684f;
+  --ivory: #f7f2e8;
+  --ivory-dark: #ece4d3;
+  --gold: #b8924a;
+  --gold-light: #d4b36e;
+  --charcoal: #1c1d1c;
+  --grey: #6b6e6a;
+  --silver: #c7c9c6;
+}
+
+@theme inline {
+  --color-emerald-950: var(--emerald-950);
+  --color-emerald-900: var(--emerald-900);
+  --color-emerald-800: var(--emerald-800);
+  --color-emerald-700: var(--emerald-700);
+  --color-ivory: var(--ivory);
+  --color-ivory-dark: var(--ivory-dark);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-charcoal: var(--charcoal);
+  --color-grey: var(--grey);
+  --color-silver: var(--silver);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--emerald-800);
+  color: var(--ivory);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+/* Every button: light sweep on hover and a soft press */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  transform: translateX(-130%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transition: transform 0.75s ease;
+}
+.btn:hover:not(:disabled)::after { transform: translateX(130%) skewX(-20deg); }
+.btn:active:not(:disabled) { transform: translateY(0) scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-gold { background: var(--gold); color: var(--emerald-950); }
+.btn-gold:hover:not(:disabled) { background: var(--gold-light); transform: translateY(-1px); }
+.btn-emerald { background: var(--emerald-800); color: var(--ivory); }
+.btn-emerald:hover:not(:disabled) { background: var(--emerald-950); transform: translateY(-1px); }
+.btn-outline { border-color: currentColor; background: transparent; }
+.btn-outline:hover:not(:disabled) { background: var(--ivory); color: var(--emerald-950); border-color: var(--ivory); }
+.btn-outline-dark { border-color: var(--emerald-900); color: var(--emerald-900); }
+.btn-outline-dark:hover:not(:disabled) { background: var(--emerald-900); color: var(--ivory); }
+.btn-sm { padding: 0.65rem 1.1rem; font-size: 0.68rem; }
+
+.field {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--silver);
+  padding: 0.8rem 0;
+  font-size: 0.95rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.field:focus { outline: none; border-bottom-color: var(--emerald-800); box-shadow: 0 1px 0 var(--emerald-800); }
+.field[aria-invalid="true"] { border-bottom-color: #a33; }
+.label { display: block; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey); margin-top: 1.1rem; }
+.err { color: #a33; font-size: 0.8rem; margin-top: 0.3rem; }
+
+/* Contact form: a raised card with boxed fields, gold focus glow and a staggered entrance (scoped, other forms keep the underline style) */
+.form-card {
+  position: relative; overflow: hidden; border-radius: 1.5rem; background: #fff; padding: 1.25rem 1.5rem 1.5rem;
+  box-shadow: 0 24px 60px -30px rgba(5, 36, 28, 0.55); outline: 1px solid rgba(184, 146, 74, 0.28); outline-offset: -1px;
+}
+.form-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--emerald-800), var(--gold), var(--emerald-800)); background-size: 200% 100%;
+  animation: form-bar 6s linear infinite;
+}
+.form-card .field {
+  background: var(--ivory); border: 1px solid var(--silver); border-radius: 0.6rem; padding: 0.55rem 0.8rem; font: inherit; font-size: 0.9rem;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, transform 0.3s;
+}
+.form-card .field:hover { border-color: var(--gold); }
+.form-card .field:focus {
+  background: #fff; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(184, 146, 74, 0.2), 0 10px 24px -14px rgba(5, 36, 28, 0.5); transform: translateY(-2px);
+}
+.form-card .field[aria-invalid="true"] { border-color: #a33; animation: field-shake 0.4s; }
+.form-card .label { margin: 0.85rem 0 0.3rem; font-size: 0.65rem; transition: color 0.3s, letter-spacing 0.3s; }
+.form-card .field-wrap:focus-within .label { color: var(--emerald-800); letter-spacing: 0.2em; }
+.form-card .field-wrap { animation: field-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.form-card .field-wrap:nth-child(2) { animation-delay: 0.08s; }
+.form-card .field-wrap:nth-child(3) { animation-delay: 0.16s; }
+.form-card .field-wrap:nth-child(4) { animation-delay: 0.24s; }
+.form-card .field-wrap:nth-child(5) { animation-delay: 0.32s; }
+.form-card > .field-wrap { animation-delay: 0.3s; }
+.form-card > .field-wrap ~ .field-wrap { animation-delay: 0.42s; }
+.form-card button[type="submit"] { animation: field-in 0.7s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+/* Contact page: moving road line, riding scooter, pulsing icon rings */
+.road-line { background: repeating-linear-gradient(90deg, rgba(212, 179, 110, 0.7) 0 22px, transparent 22px 44px); background-size: 44px 1px; animation: road-move 1.2s linear infinite; }
+@keyframes road-move { to { background-position: -44px 0; } }
+@keyframes scooter-ride { from { transform: translateX(-20vw); } to { transform: translateX(105vw); } }
+.pulse-ring { animation: ring-pulse 2.4s ease-out infinite; }
+@keyframes ring-pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.7); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .road-line, .pulse-ring { animation: none; } }
+@keyframes field-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes form-bar { to { background-position: -200% 0; } }
+@keyframes field-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) {
+  .form-card::before, .form-card .field-wrap, .form-card button[type="submit"], .form-card .field[aria-invalid="true"] { animation: none; }
+  .form-card .field, .form-card .label { transition: none; }
+  .form-card .field:focus { transform: none; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--ivory-dark) 25%, #f3ecdd 50%, var(--ivory-dark) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes tile-sheen { 0% { transform: translateX(0) skewX(-12deg); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateX(520%) skewX(-12deg); opacity: 0; } }
+
+/* Navigation: staggered entrance, rolling text and a centre-out underline */
+.nav-item { animation: nav-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes nav-in { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+.nav-roll { position: relative; display: block; overflow: hidden; line-height: 1.4; }
+.nav-roll > span { display: block; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-roll::after {
+  content: attr(data-label); position: absolute; left: 0; top: 100%;
+  color: var(--gold); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover .nav-roll > span, .nav-link:focus-visible .nav-roll > span { transform: translateY(-100%); }
+.nav-link:hover .nav-roll::after, .nav-link:focus-visible .nav-roll::after { transform: translateY(-100%); }
+.nav-underline {
+  position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--gold);
+  transform: scaleX(0); transform-origin: center; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover .nav-underline, .nav-link:focus-visible .nav-underline { transform: scaleX(1); }
+
+/* Hero headline: travelling gold shimmer across the gold letters */
+.shine-gold {
+  background: linear-gradient(100deg, var(--gold) 35%, #fff1c9 50%, var(--gold) 65%) 0 0 / 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3.4s linear infinite;
+  animation-delay: calc(1.6s + var(--d, 0s));
+}
+@keyframes photo-in { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes shine { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+
+/* Map: radar rings on the pin and a light sweep across the buttons */
+.map-ring {
+  position: absolute; left: 50%; top: 50%; width: 18px; height: 9px; margin: -4.5px 0 0 -9px;
+  border: 2px solid rgba(220, 38, 38, 0.75); border-radius: 50%;
+  animation: map-ring 2.4s ease-out infinite;
+}
+@keyframes map-ring { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(7); opacity: 0; } }
+.map-btn { position: relative; overflow: hidden; }
+.map-btn::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: transform 0.7s ease;
+}
+.map-btn:hover::after { transform: translateX(120%) skewX(-20deg); }
+
+/* Hero scroll indicator */
+.scroll-dot { animation: scroll-dot 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes scroll-dot { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(16px); opacity: 0; } 71% { transform: translateY(0); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+.scroll-ring { animation: scroll-ring 2.4s ease-out infinite; }
+@keyframes scroll-ring { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.5, 1.35); opacity: 0; } }
+.scroll-chev { animation: scroll-chev 1.6s ease-in-out infinite; }
+@keyframes scroll-chev { 0%, 100% { opacity: 0.15; transform: translateY(-3px); } 50% { opacity: 1; transform: translateY(3px); } }
+
+/* Key figures: staggered rise-in and a gentle icon float */
+.kf-tile { animation: kf-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes kf-in { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: none; } }
+.kf-icon { animation: kf-float 3s ease-in-out infinite; }
+@keyframes kf-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+.benefit-glow { background: radial-gradient(220px circle at var(--bx, 50%) var(--by, 50%), rgba(184, 146, 74, 0.18), transparent 70%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .benefit, .benefit * { transition: none !important; }
+  .kf-tile, .kf-icon { animation: none; }
+  .scroll-dot, .scroll-ring, .scroll-chev { animation: none; }
+  .map-ring { animation: none; opacity: 0; }
+  .shine-gold { animation: none; color: var(--gold-light); background: none; }
+  .nav-item { animation: none; }
+  .nav-roll > span, .nav-roll::after { transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Call-to-action band buttons: own animations instead of the shared light sweep */
+.cta-gold, .cta-ghost { padding: 1.05rem 2.1rem; border-radius: 9999px; }
+.cta-gold::after, .cta-ghost::after { display: none; }
+.cta-gold {
+  background: var(--gold); color: var(--emerald-950);
+  animation: cta-pulse 2.6s ease-out infinite;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s;
+}
+.cta-gold:hover { background: var(--gold-light); transform: translateY(-3px) scale(1.04); animation-play-state: paused; }
+.cta-gold .cta-arrow { animation: cta-nudge 1.6s ease-in-out infinite; }
+.cta-gold:hover .cta-arrow { animation: none; transform: translateX(6px); transition: transform 0.3s; }
+@keyframes cta-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(212, 179, 110, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 18px rgba(212, 179, 110, 0); }
+}
+@keyframes cta-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+
+.cta-ghost {
+  color: var(--ivory); border-color: rgba(247, 242, 232, 0.85);
+  background: linear-gradient(var(--ivory), var(--ivory)) no-repeat left center / 0% 100%;
+  transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cta-ghost:hover { background-size: 100% 100%; color: var(--emerald-950); transform: translateY(-3px); }
+.cta-ghost .cta-send { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.cta-ghost:hover .cta-send { transform: translate(5px, -4px) rotate(8deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-gold, .cta-gold .cta-arrow { animation: none; }
+}
+
+/* Footer: aligned headings with a growing gold rule, sliding underlined links, lively icons */
+.foot-head { position: relative; padding-bottom: 0.85rem; line-height: 1.25; }
+.foot-head::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 1.75rem; background: var(--gold); transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.foot-col:hover .foot-head::after { width: 3.75rem; }
+.foot-link {
+  display: inline-block; padding-bottom: 1px;
+  background: linear-gradient(var(--gold), var(--gold)) no-repeat left bottom / 0% 1px;
+  transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s;
+}
+.foot-link:hover, .foot-link:focus-visible { background-size: 100% 1px; transform: translateX(5px); color: var(--gold-light); }
+.foot-row svg { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s; }
+.foot-row:hover svg { transform: scale(1.2) rotate(-8deg); color: var(--gold-light); }
+.foot-logo { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s; }
+.foot-col:hover .foot-logo { transform: scale(1.04) rotate(-1.5deg); filter: drop-shadow(0 6px 14px rgba(200, 30, 40, 0.35)); }
+.foot-directions svg { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); animation: foot-nudge 1.8s ease-in-out infinite; }
+.foot-directions:hover svg { animation: none; transform: translateX(6px); }
+@keyframes foot-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) { .foot-directions svg { animation: none; } .foot-link:hover, .foot-row:hover svg, .foot-col:hover .foot-logo { transform: none; } }
+
+/* Header brand: glint across the wordmark now and then, lively hover */
+.brand-link { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.brand-link:hover { transform: translateY(-1px) scale(1.04); }
+.brand-mark::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: url(/brand/vespa-logo-red.png) left center / contain no-repeat;
+          mask: url(/brand/vespa-logo-red.png) left center / contain no-repeat;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.95) 50%, transparent 65%) no-repeat -150% 0 / 60% 100%;
+  animation: brand-glint 6s ease-in-out 7s infinite;
+}
+.brand-link:hover .brand-mark::after { animation: brand-glint 1.1s ease-in-out 1; }
+@keyframes brand-glint { 0% { background-position: -150% 0; } 22%, 100% { background-position: 250% 0; } }
+.brand-link:hover .brand-mark img { filter: drop-shadow(0 0 10px rgba(220, 40, 50, 0.55)); }
+.brand-mark img { transition: filter 0.45s; }
+.brand-link [data-intro-sub] { position: relative; transition: letter-spacing 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s; }
+.brand-link:hover [data-intro-sub] { letter-spacing: 0.46em; color: var(--gold-light); }
+.brand-link [data-intro-sub]::after {
+  content: ""; position: absolute; left: 0.125rem; right: 0; bottom: -0.3rem; height: 1px; background: var(--gold-light);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.brand-link:hover [data-intro-sub]::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) { .brand-mark::after { animation: none; } .brand-link:hover { transform: none; } }
+
+/* Model cards: 3D flip to the specification side. Faces swap content so front and back never show together. */
+.flip-scene { perspective: 1500px; }
+.flip-inner { position: relative; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.flip-inner[data-open="true"] { transform: rotateY(180deg); }
+.flip-face { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.flip-front { position: relative; }
+.flip-back { position: absolute; inset: 0; transform: rotateY(180deg); }
+.flip-front { visibility: visible; opacity: 1; transition: opacity 0.3s ease 0.4s, visibility 0s; }
+.flip-inner[data-open="true"] .flip-front { visibility: hidden; opacity: 0; transition: opacity 0.25s ease, visibility 0s 0.45s; }
+.flip-back { visibility: hidden; opacity: 0; transition: opacity 0.2s ease, visibility 0s 0.25s; }
+.flip-inner[data-open="true"] .flip-back { visibility: visible; opacity: 1; transition: opacity 0.3s ease 0.4s, visibility 0s; }
+.spec-hint-icon { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.spec-hint:hover .spec-hint-icon { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+  .flip-inner[data-open="true"] { transform: none; }
+  .flip-back { transform: none; }
+  .flip-front, .flip-back, .flip-inner[data-open="true"] .flip-front, .flip-inner[data-open="true"] .flip-back { transition: opacity 0.25s ease; }
+}
