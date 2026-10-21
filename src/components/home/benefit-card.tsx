@@ -19,11 +19,14 @@ export function BenefitCard({ icon, title, text, index }: { icon: BenefitIcon; t
     >
       <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-gold to-gold-light transition-transform duration-500 group-hover:scale-x-100" />
       <span aria-hidden className="benefit-glow pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-      <span aria-hidden className="absolute right-5 top-4 font-display text-4xl leading-none text-gold/15 transition-colors duration-500 group-hover:text-gold/40">{String(index + 1).padStart(2, "0")}</span>
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold/10 transition-all duration-500 group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-gold">
-        <Icon className="text-gold transition-colors duration-500 group-hover:text-emerald-950" size={26} strokeWidth={1.4} />
+      <span aria-hidden className="benefit-shine pointer-events-none absolute inset-y-0 left-0 w-1/4" />
+      <span aria-hidden className="absolute right-5 top-4 font-display text-4xl leading-none text-gold/15 transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-gold/40">{String(index + 1).padStart(2, "0")}</span>
+      <span className="benefit-icon relative block w-fit" style={{ "--i": index } as React.CSSProperties}>
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/10 transition-all duration-500 group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:bg-gold">
+          <Icon className="text-gold transition-colors duration-500 group-hover:text-emerald-950" size={26} strokeWidth={1.4} />
+        </span>
       </span>
-      <h3 className="relative mt-5 text-xl leading-snug">{title}</h3>
+      <h3 className="relative mt-5 text-xl leading-snug transition-transform duration-500 group-hover:translate-x-1">{title}</h3>
       <p className="relative mt-2 text-sm text-grey">{text}</p>
     </div>
   );

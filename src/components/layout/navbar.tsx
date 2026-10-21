@@ -5,8 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Menu, Search, ShoppingBag, User, X } from "lucide-react";
-import { useCart } from "@/components/shop/cart-context";
+import { ArrowRight, ChevronDown, Menu, Search, User, X } from "lucide-react";
 
 type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
 
@@ -40,7 +39,6 @@ const NAV: NavItem[] = [
 export function Navbar({ signedIn }: { signedIn: boolean }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { count, setOpen: openCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [mobile, setMobile] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -85,7 +83,6 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
           <span className="brand-mark relative block">
             <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} priority data-intro-logo className="h-11 w-auto sm:h-[3.1rem]" />
           </span>
-          <span data-intro-sub className="mt-1.5 pl-0.5 text-[0.7rem] font-bold uppercase tracking-[0.36em] text-gold-light [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">Puducherry</span>
         </Link>
 
         <ul className="hidden items-center gap-8 lg:flex">
@@ -144,19 +141,6 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
         <div className="flex items-center gap-1">
           <button aria-label="Search" onClick={() => setSearchOpen((v) => !v)} className="p-2 transition-colors hover:text-gold"><Search size={19} /></button>
           <Link href={signedIn ? "/account" : "/login"} aria-label={signedIn ? "My account" : "Sign in"} className="p-2 transition-colors hover:text-gold"><User size={19} /></Link>
-          <button aria-label={`Cart, ${count} items`} onClick={() => openCart(true)} className="relative p-2 transition-colors hover:text-gold">
-            <ShoppingBag size={19} />
-            <AnimatePresence mode="popLayout">
-              {count > 0 && (
-                <motion.span
-                  key={count} initial={{ scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.4, opacity: 0 }}
-                  className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[0.6rem] font-bold text-emerald-950"
-                >
-                  {count}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
           <button aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile((v) => !v)} className="p-2 lg:hidden">
             {mobile ? <X size={22} /> : <Menu size={22} />}
           </button>

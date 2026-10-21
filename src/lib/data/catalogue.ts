@@ -51,7 +51,10 @@ export async function listScooters(f: ScooterFilters = {}): Promise<Result<{ ite
     if (error) throw error;
     return { data: { items: (data ?? []) as Scooter[], total: count ?? 0 }, error: null, configured: true };
   } catch (e) {
-    return { data: { items: [], total: 0 }, error: e instanceof Error ? e.message : "Failed to load scooters", configured: true };
+    const err = e as { message?: string; code?: string; details?: string; hint?: string } | null;
+    const message = e instanceof Error ? e.message : err?.message;
+    console.error(`listScooters failed: ${message ?? "unknown"} (code ${err?.code ?? "n/a"}) ${err?.details ?? ""} ${err?.hint ?? ""}`);
+    return { data: { items: [], total: 0 }, error: message ?? "Failed to load scooters", configured: true };
   }
 }
 

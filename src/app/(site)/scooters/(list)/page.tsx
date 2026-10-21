@@ -47,7 +47,7 @@ export default async function ScootersPage({ searchParams }: { searchParams: Pro
       <PageHeader eyebrow="The collection" title="Scooters">Browse the range. Prices appear only when verified by the showroom.</PageHeader>
       <div className="mx-auto max-w-7xl px-5 pt-14 lg:px-8"><OwnerModelBar /></div>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-14 pt-2 lg:grid-cols-[17rem_1fr] lg:px-8">
-        <form method="get" className="space-y-1 lg:sticky lg:top-28 lg:self-start" aria-label="Filter scooters">
+        <form method="get" className="space-y-1 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:self-start lg:overflow-y-auto lg:pr-2" aria-label="Filter scooters">
           <label className="label !mt-0" htmlFor="q">Search by model</label>
           <input id="q" name="q" defaultValue={sp.q} placeholder="e.g. Primavera" className="field" />
           <label className="label" htmlFor="category">Category</label>
@@ -83,7 +83,7 @@ export default async function ScootersPage({ searchParams }: { searchParams: Pro
         </form>
 
         <div>
-          {res.error && res.configured && <Notice tone="error">We couldn&apos;t load the catalogue right now. Please try again shortly.</Notice>}
+          {res.error && res.configured && <ShowroomModelGrid />}
           {res.error && !res.configured && <Notice tone="warn">{res.error}</Notice>}
           {!res.error && items.length === 0 && (
             <div className="border border-dashed border-silver p-12 text-center">

@@ -46,9 +46,13 @@ export async function withinRateLimit(scope: string, max: number, windowSeconds:
     const { data, error } = await admin.rpc("rate_limit_hit", {
       p_key: await clientKey(scope), p_max: max, p_window_seconds: windowSeconds,
     });
-    if (error) return false;
+    if (error) {
+      console.error(`rate limiter error: ${error.message} (code ${error.code}). Have the Supabase migrations been run?`);
+      return false;
+    }
     return data === true;
-  } catch {
+  } catch (e) {
+    console.error("rate limiter failed:", e instanceof Error ? e.message : e);
     return false;
   }
 }

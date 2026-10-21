@@ -228,8 +228,18 @@ h1, h2, h3, .font-display {
 
 .benefit-glow { background: radial-gradient(220px circle at var(--bx, 50%) var(--by, 50%), rgba(184, 146, 74, 0.18), transparent 70%); }
 
+/* Benefit cards: idle icon float (staggered per card), shine sweep on hover, press feedback. */
+.benefit-icon { animation: benefit-float 3.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.35s); }
+.benefit:hover .benefit-icon { animation-play-state: paused; }
+@keyframes benefit-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.benefit-shine { transform: translateX(-130%) skewX(-18deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent); }
+.benefit:hover .benefit-shine { animation: benefit-sweep 0.9s ease-out; }
+@keyframes benefit-sweep { to { transform: translateX(330%) skewX(-18deg); } }
+.benefit:active { transform: translateY(-4px) scale(0.98); }
+
 @media (prefers-reduced-motion: reduce) {
   .benefit, .benefit * { transition: none !important; }
+  .benefit-icon, .benefit:hover .benefit-shine { animation: none; }
   .kf-tile, .kf-icon { animation: none; }
   .scroll-dot, .scroll-ring, .scroll-chev { animation: none; }
   .map-ring { animation: none; opacity: 0; }

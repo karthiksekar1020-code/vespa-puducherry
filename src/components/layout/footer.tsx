@@ -38,7 +38,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
       <Stagger className="mx-auto grid max-w-7xl items-start gap-x-10 gap-y-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.15fr_0.7fr_0.8fr_1.6fr_1fr] lg:px-8">
         <StaggerItem className="foot-col">
           <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} className="foot-logo h-14 w-auto" />
-          <p className="text-[0.62rem] uppercase tracking-[0.5em] text-gold">Puducherry</p>
           <p className="mt-5 max-w-xs text-sm leading-6 text-ivory/70">Iconic design. Timeless freedom. Scooters, accessories and a more personal way to ride.</p>
           {socials.length > 0 && (
             <ul className="mt-6 flex gap-4 text-xs uppercase tracking-widest">

@@ -218,17 +218,6 @@ function IntroOverlay({ onDone }: { onDone: () => void }) {
             </motion.div>
           </motion.div>
 
-          {/* PUDUCHERRY, beneath the scooter */}
-          <div className="absolute inset-x-0 flex justify-center" style={{ top: layout.subTop }}>
-            <motion.span
-              ref={subRef}
-              style={{ x: subX, y: subY, scale: subScale, transformOrigin: "0 0", opacity: subOpacity, maskImage: subMask, WebkitMaskImage: subMask, fontSize: layout.subFont }}
-              className="inline-block whitespace-nowrap pl-0.5 font-bold uppercase leading-none tracking-[0.36em] text-gold-light [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]"
-            >
-              Puducherry
-            </motion.span>
-          </div>
-
           {/* Scooter: always in front of the type */}
           <motion.div
             ref={scooterRef}
