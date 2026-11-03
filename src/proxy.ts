@@ -28,10 +28,10 @@ export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const needsAuth = PROTECTED.some((p) => path === p || path.startsWith(p + "/"));
-  const needsAdmin = path.startsWith("/admin") && path !== "/admin/login";
+  const needsAdmin = path.startsWith("/admin");
   if (!data.user && (needsAuth || needsAdmin)) {
     const dest = request.nextUrl.clone();
-    dest.pathname = needsAdmin ? "/admin/login" : "/login";
+    dest.pathname = "/";
     dest.search = needsAdmin ? "" : `?next=${encodeURIComponent(path)}`;
     return NextResponse.redirect(dest);
   }

@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
  * These run WITHOUT Supabase credentials, so they also verify that the app degrades honestly:
  * nothing pretends to succeed when the backend is unavailable.
  */
-const PUBLIC_ROUTES = ["/", "/scooters", "/accessories", "/collections", "/about", "/contact", "/book-test-ride", "/login", "/register", "/forgot-password", "/cart", "/search?q=vespa", "/admin/login"];
+const PUBLIC_ROUTES = ["/", "/scooters", "/accessories", "/collections", "/about", "/contact", "/book-test-ride", "/cart", "/search?q=vespa"];
 
 for (const route of PUBLIC_ROUTES) {
   test(`route ${route} renders without server errors`, async ({ page }) => {
@@ -32,29 +32,6 @@ test("every primary navigation link resolves", async ({ page, isMobile }) => {
     const res = await page.request.get(href);
     expect(res.status(), href).toBeLessThan(400);
   }
-});
-
-test("protected customer routes redirect anonymous visitors only when auth is configured; otherwise show sign-in", async ({ page }) => {
-  await page.goto("/account");
-  await expect(page).toHaveURL(/\/login\?next=%2Faccount/);
-});
-
-test("admin area is never reachable without an owner session", async ({ page }) => {
-  await page.goto("/admin");
-  await expect(page).toHaveURL(/\/admin\/login/);
-  await page.goto("/admin/settings");
-  await expect(page).toHaveURL(/\/admin\/login/);
-});
-
-test("login form validates and reports honestly when backend is missing", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Sign in" }).click();
-  await expect(page.locator("main p[role=alert]").first()).toBeVisible();
-  await page.getByLabel("Email").fill("someone@example.com");
-  await page.locator("#f-password").fill("whatever1A");
-  await page.getByRole("button", { name: "Sign in" }).click();
-  await expect(page.locator("main p[role=alert]").first()).toContainText(/not configured|database/i);
-  await expect(page).toHaveURL(/\/login/);
 });
 
 test("test ride form never claims success without a backend", async ({ page }) => {

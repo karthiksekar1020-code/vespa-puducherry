@@ -140,7 +140,7 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
 
         <div className="flex items-center gap-1">
           <button aria-label="Search" onClick={() => setSearchOpen((v) => !v)} className="p-2 transition-colors hover:text-gold"><Search size={19} /></button>
-          <Link href={signedIn ? "/account" : "/login"} aria-label={signedIn ? "My account" : "Sign in"} className="p-2 transition-colors hover:text-gold"><User size={19} /></Link>
+          {signedIn && <Link href="/account" aria-label="My account" className="p-2 transition-colors hover:text-gold"><User size={19} /></Link>}
           <button aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile((v) => !v)} className="p-2 lg:hidden">
             {mobile ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -182,7 +182,7 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
             </ul>
             <div className="mt-8 flex flex-col gap-3">
               <Link href="/book-test-ride" className="btn btn-gold">Book a test ride</Link>
-              <Link href={signedIn ? "/account" : "/login"} className="btn btn-outline text-ivory">{signedIn ? "My account" : "Sign in / Register"}</Link>
+              {signedIn && <Link href="/account" className="btn btn-outline text-ivory">My account</Link>}
             </div>
           </motion.div>
         )}

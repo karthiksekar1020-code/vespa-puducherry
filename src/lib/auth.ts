@@ -24,15 +24,15 @@ export async function getProfile(): Promise<Profile | null> {
 
 export async function requireUser(next = "/account"): Promise<User> {
   const user = await getUser();
-  if (!user) redirect(`/login?next=${encodeURIComponent(next)}`);
+  if (!user) redirect("/");
   return user;
 }
 
 /** Owner role comes from the database profile row, never from client state or JWT metadata. */
 export async function requireOwner(): Promise<Profile> {
   const profile = await getProfile();
-  if (!profile) redirect("/admin/login");
-  if (profile.role !== "owner") redirect("/admin/login?error=forbidden");
+  if (!profile) redirect("/");
+  if (profile.role !== "owner") redirect("/");
   return profile;
 }
 
