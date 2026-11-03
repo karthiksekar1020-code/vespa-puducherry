@@ -83,7 +83,6 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
           <span className="brand-mark relative block">
             <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} priority data-intro-logo className="h-11 w-auto sm:h-[3.1rem]" />
           </span>
-          <span data-intro-sub className="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.34em] text-gold-light">Pondicherry</span>
         </Link>
 
         <ul className="hidden items-center gap-8 lg:flex">
