@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -29,15 +29,13 @@ function Row({ icon, label, children, i }: { icon: ReactNode; label: string; chi
 /** Animated showroom details card: rows slide in one by one, icons pulse and tilt on hover. */
 export function ContactShowroomCard({ address, phone, email }: { address: string; phone: string; email: string }) {
   const missing = <i className="text-grey">To be added by the showroom</i>;
-  const phones = phone.split("|").map((n) => n.trim()).filter(Boolean);
+  const addresses = address.split("|").map((a) => a.trim()).filter(Boolean);
+  const phoneGroups = phone.split(";").map((g) => g.split("|").map((n) => n.trim()).filter(Boolean));
   return (
     <aside className="h-fit rounded-3xl bg-white p-5 text-sm shadow-[0_24px_60px_-30px_rgba(5,36,28,0.55)] ring-1 ring-gold/30">
       <h2 className="px-3 pt-2 text-2xl">Showroom</h2>
       <address className="mt-3 space-y-1 not-italic">
-        <Row i={0} icon={<MapPin size={18} />} label="Address">{address || missing}</Row>
-        <Row i={1} icon={<Phone size={18} />} label="Phone">
-          {phones.length ? phones.map((n, k) => <span key={n}>{k > 0 && " | "}<a href={`tel:${n.replace(/[^+\d]/g, "")}`} className="hover:text-gold">{n}</a></span>) : missing}
-        </Row>
+        {addresses.length ? addresses.map((a, k) => (<Fragment key={a}><Row i={k} icon={<MapPin size={18} />} label={addresses.length > 1 ? `Address ${k + 1}` : "Address"}>{a}</Row>{phoneGroups[k]?.length > 0 && <Row i={k} icon={<Phone size={18} />} label="Phone">{phoneGroups[k].map((n) => <span key={n} className="block"><a href={`https://wa.me/${n.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label={`Chat on WhatsApp: ${n}`} className="hover:text-gold">{n}</a></span>)}</Row>}</Fragment>)) : <Row i={0} icon={<MapPin size={18} />} label="Address">{missing}</Row>}
         <Row i={2} icon={<Mail size={18} />} label="Email">{email ? <a href={`mailto:${email}`} className="hover:text-gold">{email}</a> : missing}</Row>
       </address>
     </aside>

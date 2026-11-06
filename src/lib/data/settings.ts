@@ -6,8 +6,8 @@ import type { SiteSettings } from "@/lib/types";
 export const DEFAULT_SETTINGS: SiteSettings = {
   business: {
     name: "Vespa Puducherry",
-    address: "#10-A, Vignesh Towers, ECR, Near Kokku Park, Puducherry",
-    phone: "+91 90470 44191 | +91 90474 44927",
+    address: "No.10-A, Vignesh Towers, E.C.R Road, Pakkamudayanpet, Lawspet, Puducherry. | # 126, 100 feet Road, Near RTO Office, Mudaliarpet, Puducherry - 605004.",
+    phone: "+91 90470 44191 | +91 90474 77091 ; +91 90474 44927 | +91 90920 24191",
     email: "sales.vigneshmoteurx@piaggio2wstore.in",
     whatsapp: "",
   },

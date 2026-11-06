@@ -22,7 +22,6 @@ const NAV: NavItem[] = [
     label: "Accessories", href: "/accessories",
     children: [
       { label: "All accessories", href: "/accessories" },
-      { label: "Wishlist & orders", href: "/orders" },
     ],
   },
   {
@@ -79,13 +78,13 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
             : "h-[6.25rem] border-ivory/15 bg-emerald-950/35 shadow-[0_8px_30px_-15px_rgba(0,0,0,0.5)]"
         }`}
       >
-        <Link href="/" className="brand-link flex flex-col items-start leading-none" aria-label="Vespa Puducherry home">
+        <Link href="/" className="brand-link flex shrink-0 flex-col items-start leading-none" aria-label="Vespa Puducherry home">
           <span className="brand-mark relative block">
-            <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} priority data-intro-logo className="h-11 w-auto sm:h-[3.1rem]" />
+            <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} priority data-intro-logo className="h-11 w-auto shrink-0 sm:h-[3.1rem]" />
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-3 xl:gap-5 2xl:gap-9 lg:flex lg:mx-3">
           {NAV.map((item) => (
             <li
               key={item.href} className="nav-item relative" style={{ animationDelay: `${0.15 + NAV.indexOf(item) * 0.07}s` }}
@@ -96,7 +95,7 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className="nav-link group relative block py-2 text-[0.72rem] font-semibold uppercase tracking-[0.2em]"
+                  className="nav-link group relative block whitespace-nowrap py-2 text-[0.72rem] font-semibold uppercase tracking-[0.1em] xl:tracking-[0.12em] 2xl:tracking-[0.16em]"
                 >
                   <span className="nav-roll" data-label={item.label}><span>{item.label}</span></span>
                   <span aria-hidden className="nav-underline" />
@@ -140,6 +139,10 @@ export function Navbar({ signedIn }: { signedIn: boolean }) {
 
         <div className="flex items-center gap-1">
           <button aria-label="Search" onClick={() => setSearchOpen((v) => !v)} className="p-2 transition-colors hover:text-gold"><Search size={19} /></button>
+          <span className="ml-0.5 flex min-w-0 items-center gap-2 pl-1 sm:gap-2.5 sm:pl-2" aria-label="Vignesh Moteurx / Auto">
+            <Image src="/brand/vignesh-logo-white.png" alt="" aria-hidden width={140} height={240} className="h-8 w-auto shrink-0 sm:h-10" />
+            <span className="max-w-[8.5rem] font-sans text-[0.72rem] font-extrabold uppercase leading-tight tracking-[0.08em] text-white sm:max-w-none sm:whitespace-nowrap sm:text-[0.8rem] lg:text-[0.64rem] lg:tracking-[0.03em] xl:text-[0.95rem] xl:tracking-[0.12em]">Vignesh Moteurx / Auto</span>
+          </span>
           {signedIn && <Link href="/account" aria-label="My account" className="p-2 transition-colors hover:text-gold"><User size={19} /></Link>}
           <button aria-label={mobile ? "Close menu" : "Open menu"} aria-expanded={mobile} onClick={() => setMobile((v) => !v)} className="p-2 lg:hidden">
             {mobile ? <X size={22} /> : <Menu size={22} />}

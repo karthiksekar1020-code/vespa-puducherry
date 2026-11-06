@@ -1,9 +1,10 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Stagger, StaggerItem } from "@/components/ui/reveal";
 import { formatTime } from "@/lib/format";
-import { DIRECTIONS_URL } from "@/lib/location";
+import { DirectionsMenu } from "@/components/layout/directions-menu";
 import type { HoursSettings, SiteSettings } from "@/lib/types";
 
 const PLACEHOLDER = "To be added by the showroom";
@@ -28,17 +29,17 @@ export function groupHours(hours: HoursSettings): { label: string; value: string
 }
 
 export function Footer({ settings }: { settings: SiteSettings }) {
-  const { business, social, hours } = settings;
-  const phones = business.phone.split("|").map((p) => p.trim()).filter(Boolean);
+  const { business, social } = settings;
+  // Phone groups are separated by ";" and line up with the addresses (separated by "|"): group 1 sits under address 1, and so on.
+  const phoneGroups = business.phone.split(";").map((g) => g.split("|").map((p) => p.trim()).filter(Boolean));
   const socials = [["Instagram", social.instagram], ["Facebook", social.facebook], ["YouTube", social.youtube]].filter(([, url]) => url);
   const missing = (what: string) => <span className="italic text-ivory/50">{what}: {PLACEHOLDER}</span>;
 
   return (
     <footer className="bg-emerald-950 text-ivory">
-      <Stagger className="mx-auto grid max-w-7xl items-start gap-x-10 gap-y-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.15fr_0.7fr_0.8fr_1.6fr_1fr] lg:px-8">
+      <Stagger className="mx-auto grid max-w-7xl items-start gap-x-10 gap-y-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.15fr_0.7fr_0.8fr_1.6fr] lg:px-8">
         <StaggerItem className="foot-col">
           <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} className="foot-logo h-14 w-auto" />
-          <p className="mt-5 max-w-xs text-sm leading-6 text-ivory/70">Iconic design. Timeless freedom. Scooters, accessories and a more personal way to ride.</p>
           {socials.length > 0 && (
             <ul className="mt-6 flex gap-4 text-xs uppercase tracking-widest">
               {socials.map(([name, url]) => <li key={name}><a href={url} target="_blank" rel="noopener noreferrer" className="foot-link">{name}</a></li>)}
@@ -52,27 +53,14 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <StaggerItem className="foot-col">
           <h3 className="eyebrow foot-head !font-sans">Address</h3>
           <address className="mt-5 space-y-3 text-sm leading-6 not-italic text-ivory/85">
-            <p className="foot-row flex gap-3"><MapPin size={16} className="mt-1 shrink-0 text-gold" aria-hidden />{business.address ? <span>{business.address}</span> : missing("Address")}</p>
-            <p className="foot-row flex gap-3"><Phone size={16} className="mt-1 shrink-0 text-gold" aria-hidden />
-              {phones.length ? (
-                <span>{phones.map((p, i) => (
-                  <span key={p}>{i > 0 && <span className="text-ivory/40"> | </span>}<a href={`tel:${p.replace(/[^+\d]/g, "")}`} className="foot-link">{p}</a></span>
-                ))}</span>
-              ) : missing("Phone")}
-            </p>
+            {business.address ? business.address.split("|").map((a, k) => (<Fragment key={a}><p className="foot-row flex gap-3"><MapPin size={16} className="mt-1 shrink-0 text-gold" aria-hidden /><span>{a.trim()}</span></p>{phoneGroups[k]?.length > 0 && <p className="foot-row flex gap-3"><Phone size={16} className="mt-1 shrink-0 text-gold" aria-hidden /><span>{phoneGroups[k].map((p) => <span key={p} className="block"><a href={`https://wa.me/${p.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label={`Chat on WhatsApp: ${p}`} className="foot-link">{p}</a></span>)}</span></p>}</Fragment>)) : <p className="foot-row flex gap-3"><MapPin size={16} className="mt-1 shrink-0 text-gold" aria-hidden />{missing("Address")}</p>}
             <p className="foot-row flex gap-3"><Mail size={16} className="mt-1 shrink-0 text-gold" aria-hidden />
               {business.email ? <a href={`mailto:${business.email}`} className="foot-link [overflow-wrap:anywhere]">{business.email}</a> : missing("Email")}
             </p>
           </address>
-          <a href={DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="foot-directions mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gold hover:text-gold-light">Get directions <ArrowRight size={14} aria-hidden /></a>
+          <DirectionsMenu />
         </StaggerItem>
 
-        <StaggerItem className="foot-col">
-          <h3 className="eyebrow foot-head !font-sans">Opening</h3>
-          <dl className="mt-5 space-y-3 text-sm leading-6 text-ivory/85">
-            {groupHours(hours).map((g) => <div key={g.label} className="foot-row"><dt>{g.label}</dt><dd className="text-ivory/60">{g.value}</dd></div>)}
-          </dl>
-        </StaggerItem>
       </Stagger>
       <div className="border-t border-ivory/10 px-5 py-6 text-center text-xs text-ivory/50">
         <p>© {new Date().getFullYear()} {business.name}. Vespa® is a registered trademark of Piaggio &amp; C. S.p.A.</p>
