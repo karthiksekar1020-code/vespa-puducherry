@@ -257,7 +257,7 @@ export function SettingsForms({ settings }: { settings: SiteSettings }) {
         </ActionForm></section>
       <section className="bg-white p-7"><h2 className="text-2xl">Social links</h2>
         <ActionForm action={saveSettingsAction.bind(null, "social")} submitLabel="Save" submitClassName="btn btn-emerald btn-sm">
-          <Field name="instagram" label="Instagram URL" defaultValue={so.instagram} /><Field name="facebook" label="Facebook URL" defaultValue={so.facebook} /><Field name="youtube" label="YouTube URL" defaultValue={so.youtube} />
+          <Field name="instagram" label="Instagram URL" defaultValue={so.instagram} /><Field name="facebook" label="Facebook URL" defaultValue={so.facebook} /><Field name="youtube" label="YouTube URL" defaultValue={so.youtube} /><Field name="x" label="X (Twitter) URL" defaultValue={so.x} /><Field name="linkedin" label="LinkedIn URL" defaultValue={so.linkedin} />
         </ActionForm></section>
       <section className="bg-white p-7"><h2 className="text-2xl">Shipping & tax</h2>
         <ActionForm action={saveSettingsAction.bind(null, "commerce")} submitLabel="Save" submitClassName="btn btn-emerald btn-sm">

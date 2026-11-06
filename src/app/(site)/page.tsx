@@ -10,7 +10,7 @@ import { ScooterCard } from "@/components/shop/scooter-card";
 import { AccessoryCard } from "@/components/shop/accessory-card";
 import { BenefitCard } from "@/components/home/benefit-card";
 import { CtaButtons } from "@/components/home/cta-buttons";
-import { ShowroomMap } from "@/components/home/showroom-map";
+import { ShowroomMaps } from "@/components/home/showroom-map";
 import { ShowroomGallery } from "@/components/home/showroom-gallery";
 import { featuredScooters, listAccessories } from "@/lib/data/catalogue";
 import { getShowroomModels } from "@/lib/data/showroom-models";
@@ -38,8 +38,8 @@ const HERO_IMAGE = ["hero.webp", "hero.jpg", "hero.jpeg", "hero.png"].map((f) =>
 const HERO_VIDEO = existsSync(path.join(process.cwd(), "public", "hero", "hero.mp4")) ? "/hero/hero.mp4" : null;
 
 export default async function HomePage() {
-  // Optional looping background for the call-to-action band: drop the file at public/site/racing-sixties.mp4 to switch it on.
-  const BAND_VIDEO = existsSync(path.join(process.cwd(), "public", "site", "racing-sixties.mp4")) ? "/site/racing-sixties.mp4" : null;
+  // Optional looping background for the call-to-action band: drop the file at public/site/vespa-scooter-moving.mp4 to switch it on.
+  const BAND_VIDEO = existsSync(path.join(process.cwd(), "public", "site", "vespa-scooter-moving.mp4")) ? "/site/vespa-scooter-moving.mp4" : null;
   const [featured, accessories, showroomModels] = await Promise.all([featuredScooters(3), listAccessories({ pageSize: 4, sort: "newest" }), getShowroomModels()]);
 
   return (
@@ -118,7 +118,7 @@ export default async function HomePage() {
       <section id="find-us" className="mx-auto max-w-7xl px-5 pb-24 pt-24 lg:px-8">
         <Reveal className="text-center"><p className="eyebrow">Find us</p><h2 className="mt-3 text-4xl md:text-5xl">Visit the showroom</h2><p className="mx-auto mt-4 max-w-2xl text-grey">Come and see the scooters in person. Open Monday to Saturday 9 am – 9 pm, Sunday 10 am – 8 pm.</p></Reveal>
         <div className="mt-8 grid items-stretch gap-6 lg:grid-cols-[1fr_22rem]">
-          <Reveal><ShowroomMap className="max-w-none" heightClass="h-64 md:h-72" /></Reveal>
+          <Reveal><ShowroomMaps heightClass="h-64 md:h-72" /></Reveal>
           <Reveal delay={0.15} className="rounded-3xl bg-white p-6 shadow-[0_18px_50px_-28px_rgba(5,36,28,0.5)] ring-1 ring-silver/40 md:p-7">
             <p className="eyebrow">Questions</p><h2 className="mt-2 text-3xl">Frequently asked</h2>
             <div className="mt-4 divide-y divide-silver/60 border-y border-silver/60">

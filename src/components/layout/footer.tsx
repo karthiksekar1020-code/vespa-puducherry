@@ -29,10 +29,9 @@ export function groupHours(hours: HoursSettings): { label: string; value: string
 }
 
 export function Footer({ settings }: { settings: SiteSettings }) {
-  const { business, social } = settings;
+  const { business } = settings;
   // Phone groups are separated by ";" and line up with the addresses (separated by "|"): group 1 sits under address 1, and so on.
   const phoneGroups = business.phone.split(";").map((g) => g.split("|").map((p) => p.trim()).filter(Boolean));
-  const socials = [["Instagram", social.instagram], ["Facebook", social.facebook], ["YouTube", social.youtube]].filter(([, url]) => url);
   const missing = (what: string) => <span className="italic text-ivory/50">{what}: {PLACEHOLDER}</span>;
 
   return (
@@ -40,11 +39,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
       <Stagger className="mx-auto grid max-w-7xl items-start gap-x-10 gap-y-12 px-5 py-16 md:grid-cols-2 lg:grid-cols-[1.15fr_0.7fr_0.8fr_1.6fr] lg:px-8">
         <StaggerItem className="foot-col">
           <Image src="/brand/vespa-logo-red.png" alt="Vespa" width={800} height={291} className="foot-logo h-14 w-auto" />
-          {socials.length > 0 && (
-            <ul className="mt-6 flex gap-4 text-xs uppercase tracking-widest">
-              {socials.map(([name, url]) => <li key={name}><a href={url} target="_blank" rel="noopener noreferrer" className="foot-link">{name}</a></li>)}
-            </ul>
-          )}
         </StaggerItem>
 
         <FooterCol title="Explore" links={[["Scooters", "/scooters"], ["Accessories", "/accessories"], ["Compare bikes", "/compare"], ["Specifications", "/specifications"], ["About us", "/about"]]} />

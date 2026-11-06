@@ -221,7 +221,7 @@ export async function saveSettingsAction(key: "business" | "hours" | "social" | 
     value = { name: String(fd.get("name") ?? "").trim() || "Vespa Puducherry", address: String(fd.get("address") ?? "").trim(),
       phone: String(fd.get("phone") ?? "").trim(), email: String(fd.get("email") ?? "").trim(), whatsapp: String(fd.get("whatsapp") ?? "").trim() };
   } else if (key === "social") {
-    value = { instagram: String(fd.get("instagram") ?? "").trim(), facebook: String(fd.get("facebook") ?? "").trim(), youtube: String(fd.get("youtube") ?? "").trim() };
+    value = { instagram: String(fd.get("instagram") ?? "").trim(), facebook: String(fd.get("facebook") ?? "").trim(), youtube: String(fd.get("youtube") ?? "").trim(), x: String(fd.get("x") ?? "").trim(), linkedin: String(fd.get("linkedin") ?? "").trim() };
   } else if (key === "commerce") {
     const free = String(fd.get("free_shipping_over") ?? "").trim();
     const shipping = Number(fd.get("shipping_flat") ?? 0), tax = Number(fd.get("tax_percent") ?? 0);

@@ -18,7 +18,13 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     },
     slot_minutes: 60,
   },
-  social: { instagram: "", facebook: "", youtube: "" },
+  social: {
+    instagram: "https://www.instagram.com/vespapondicherry?exln=bnJ4ZWhlazlsZGZw",
+    facebook: "https://www.facebook.com/VespaIndia/",
+    youtube: "https://www.youtube.com/channel/UCnycYufA8Gtkk7hEXQvqHiA",
+    x: "https://twitter.com/Vespa_IN",
+    linkedin: "",
+  },
   commerce: { shipping_flat: 0, free_shipping_over: null, tax_percent: 0 },
 };
 

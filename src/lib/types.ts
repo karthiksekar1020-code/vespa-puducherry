@@ -96,7 +96,7 @@ export type Order = {
 
 export type BusinessSettings = { name: string; address: string; phone: string; email: string; whatsapp: string };
 export type HoursSettings = { days: Record<"mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun", [string, string] | null>; slot_minutes: number };
-export type SocialSettings = { instagram: string; facebook: string; youtube: string };
+export type SocialSettings = { instagram: string; facebook: string; youtube: string; x: string; linkedin: string };
 export type CommerceSettings = { shipping_flat: number; free_shipping_over: number | null; tax_percent: number };
 
 export type SiteSettings = {
