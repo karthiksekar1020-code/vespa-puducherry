@@ -7,7 +7,7 @@ export const SHOWROOM = {
   shareUrl: "https://maps.app.goo.gl/7Xt5Cp3Pt6Byen8F7",
 };
 
-export const MAP_EMBED_URL = `https://www.google.com/maps?q=${SHOWROOM.lat},${SHOWROOM.lng}&t=k&z=18&output=embed`;
+export const MAP_EMBED_URL = `https://www.google.com/maps?q=${SHOWROOM.lat},${SHOWROOM.lng}&z=17&output=embed`;
 export const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${SHOWROOM.lat},${SHOWROOM.lng}`;
 
 /** Footer "Get directions" branches. Each opens only its own Google Maps search. */

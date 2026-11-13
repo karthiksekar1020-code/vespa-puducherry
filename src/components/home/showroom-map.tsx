@@ -8,7 +8,7 @@ import { BRANCHES, DIRECTIONS_URL, MAP_EMBED_URL, SHOWROOM } from "@/lib/locatio
 export function ShowroomMap({ className = "", heightClass = "h-52 md:h-60", branch }: { className?: string; heightClass?: string; branch?: (typeof BRANCHES)[number] }) {
   const reduce = useReducedMotion();
   const name = branch?.name ?? SHOWROOM.name;
-  const embed = branch ? `https://www.google.com/maps?q=${encodeURIComponent(branch.embedQuery)}&t=k&z=18&output=embed` : MAP_EMBED_URL;
+  const embed = branch ? `https://www.google.com/maps?q=${encodeURIComponent(branch.embedQuery)}&z=17&output=embed` : MAP_EMBED_URL;
   const directions = branch ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(branch.address)}` : DIRECTIONS_URL;
   const view = branch ? branch.url : SHOWROOM.shareUrl;
   return (
